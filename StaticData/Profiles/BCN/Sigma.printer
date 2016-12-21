@@ -178,7 +178,7 @@
     "z_offset": "0",
     "make": "BCN",
     "model": "Sigma",
-    "created_date": "7/19/2016 7:54:34 PM",
+    "created_date": "2016-12-21T20:53:20.247Z",
     "baud_rate": "250000",
     "default_material_presets": "PLA",
     "windows_driver": "MHSerial.inf",
@@ -186,7 +186,6 @@
   },
   "ActiveQualityKey": "",
   "MaterialSettingsKeys": [],
-  "UserLayer": {},
   "MaterialLayers": [],
   "QualityLayers": []
 }

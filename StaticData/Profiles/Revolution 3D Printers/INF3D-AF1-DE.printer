@@ -158,7 +158,7 @@
     "z_offset": "10",
     "make": "Revolution 3D Printers",
     "model": "INF3D-AF1-DE",
-    "created_date": "2016-11-22T18:32:50.454Z",
+    "created_date": "2016-12-21T21:02:56.178Z",
     "baud_rate": "250000",
     "default_material_presets": "ABS",
     "default_quality_presets": "Standard",
@@ -171,7 +171,6 @@
   },
   "ActiveQualityKey": "",
   "MaterialSettingsKeys": [],
-  "UserLayer": {},
   "MaterialLayers": [
     {
       "layer_name": "ABS",
