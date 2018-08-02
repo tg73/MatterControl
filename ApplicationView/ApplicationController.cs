@@ -573,6 +573,8 @@ namespace MatterHackers.MatterControl
 		{
 			get
 			{
+                return 0;
+
 				if (applicationInstanceCount == 0)
 				{
 					Assembly mcAssembly = Assembly.GetEntryAssembly();
@@ -1088,7 +1090,7 @@ namespace MatterHackers.MatterControl
 
 			this.RebuildSceneOperations(this.Theme);
 
-#if DEBUG && !__ANDROID__
+#if !__ANDROID__ && IS_WINDOWS_FORMS
 			if (AggContext.StaticData is FileSystemStaticData staticData)
 			{
 				staticData.PurgeCache();
@@ -2356,7 +2358,7 @@ namespace MatterHackers.MatterControl
 		private static string lastSection = "";
 		private static Stopwatch timer;
 
-		public static string PlatformFeaturesProvider { get; set; } = "MatterHackers.MatterControl.WindowsPlatformsFeatures, MatterControl";
+        public static string PlatformFeaturesProvider { get; set; } = "MatterHackers.MatterControl.MacPlatformsFeatures, MacPlatform";
 
 		public static SystemWindow LoadRootWindow(int width, int height)
 		{

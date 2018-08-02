@@ -428,7 +428,7 @@ namespace MatterHackers.MatterControl.ConfigurationPage
 		[Conditional("DEBUG")]
 		private void GenerateLocalizationValidationFile()
 		{
-#if !__ANDROID__
+#if !__ANDROID__ && IS_WINDOWS_FORMS
 			if (AggContext.StaticData is FileSystemStaticData fileSystemStaticData)
 			{
 				char currentChar = 'A';

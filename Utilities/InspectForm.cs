@@ -12,7 +12,9 @@ using MatterHackers.VectorMath;
 
 namespace MatterHackers.MatterControl
 {
-	public partial class InspectForm : WinformsSystemWindow.FormInspector
+#if false
+
+    public partial class InspectForm : WinformsSystemWindow.FormInspector
 	{
 		private System.Windows.Forms.TreeNode activeTreeNode;
 		private GuiWidget inspectedSystemWindow;
@@ -464,4 +466,5 @@ namespace MatterHackers.MatterControl
 			base.OnKeyUp(e);
 		}
 	}
+#endif
 }

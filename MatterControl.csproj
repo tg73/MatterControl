@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -47,7 +47,7 @@
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;USE_OPENGL;IS_WINDOWS;IS_WINDOWS_FORMS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;USE_OPENGL;IS_WINDOWS;IS_2WINDOWS_FORMS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -175,7 +175,7 @@
     <Compile Include="ActionBar\PrinterSelector.cs" />
     <Compile Include="ActionBar\TemperatureWidgetBed.cs" />
     <Compile Include="ApplicationView\OemProfileDictionary.cs" />
-    <Compile Include="ApplicationView\WindowsPlatformsFeatures.cs" />
+    <Compile Include="ApplicationView\WindowsPlatformsFeatures.cs" Condition="'$(OS)' == 'Windows'" />
     <Compile Include="DataStorage\ApplicationDataStorage.cs" />
     <Compile Include="DesignTools\Attributes\IconsAttribute.cs" />
     <Compile Include="DesignTools\Attributes\WebPageLinkAttribute.cs" />
@@ -300,12 +300,13 @@
     <Compile Include="Utilities\MarkdigAgg\Inlines\AggLiteralInlineRenderer.cs" />
     <Compile Include="Utilities\MarkdigAgg\AggParagraphRenderer.cs" />
     <Compile Include="Utilities\IGCodePostProcessor.cs" />
-    <Compile Include="Utilities\InspectForm.cs" Condition="'$(Configuration)' == 'Debug'">
+    <Compile Include="Utilities\InspectForm.cs" Condition="'$(Configuration)' == 'Debug' AND '$(OS)' == 'Windows'">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Utilities\InspectForm.Designer.cs" Condition="'$(Configuration)' == 'Debug'">
+    <Compile Include="Utilities\InspectForm.Designer.cs" Condition="'$(Configuration)' == 'Debug' AND '$(OS)' == 'Windows'">
       <DependentUpon>InspectForm.cs</DependentUpon>
     </Compile>
+
     <Compile Include="Library\ContentProviders\GCodeContentProvider.cs" />
     <Compile Include="Library\ContentProviders\IContentProvider.cs" />
     <Compile Include="ConfigurationPage\ApplicationSettings\ApplicationSettingsView.cs" />
@@ -708,10 +709,6 @@
     <ProjectReference Include="Submodules\agg-sharp\PolygonMesh\PolygonMesh.csproj">
       <Project>{86F6AAF2-9B50-40B8-A427-1897D76471C5}</Project>
       <Name>PolygonMesh</Name>
-    </ProjectReference>
-    <ProjectReference Include="Submodules\agg-sharp\PlatformWin32\PlatformWin32.csproj">
-      <Project>{670BDDFF-927B-425D-9DD1-22ACB14356EB}</Project>
-      <Name>PlatformWin32</Name>
     </ProjectReference>
     <ProjectReference Include="PluginSystem\MatterControlPluginSystem.csproj">
       <Project>{865172A0-A1A9-49C2-9386-F2FDB4E141B7}</Project>
