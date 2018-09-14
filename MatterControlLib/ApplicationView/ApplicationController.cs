@@ -637,6 +637,8 @@ namespace MatterHackers.MatterControl
 					Assembly mcAssembly = Assembly.GetEntryAssembly();
 					if (mcAssembly != null)
 					{
+                        return 1;
+
 						string applicationName = Path.GetFileNameWithoutExtension(mcAssembly.Location).ToUpper();
 						Process[] p1 = Process.GetProcesses();
 						foreach (System.Diagnostics.Process pro in p1)

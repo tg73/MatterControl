@@ -48,53 +48,61 @@ namespace MatterHackers.MatterControl
 			//}
 
 			// Set default Agg providers
-			AggContext.Config.ProviderTypes.SystemWindow = "MatterHackers.Agg.UI.OpenGLSystemWindow, agg_platform_win32";
-			AggContext.Config.ProviderTypes.SystemWindowProvider = "MatterHackers.Agg.UI.WinformsSystemWindowProvider, agg_platform_win32";
+			//AggContext.Config.ProviderTypes.SystemWindow = "MonoMacGameView.MyOpenGLView, MonoMacGameView";
+			AggContext.Config.ProviderTypes.SystemWindowProvider = "MatterHackers.Agg.UI.MacWindowProvider, MatterControlMac";
+            AggContext.Config.ProviderTypes.OsInformationProvider = "MonoMacGameView.MacInformationProvider, MatterControlMac";
 
-			string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            AggContext.Config.ProviderTypes.StaticDataProvider = "MatterHackers.Agg.MacStaticData, MatterControlMac";
+            AggContext.Config.ProviderTypes.ImageIOProvider = "MatterHackers.Agg.Image.MacImageIO, MatterControlMac";
+            AggContext.Config.ProviderTypes.DialogProvider = "MatterHackers.Agg.Platform.MacFileDialogProvider, MatterControlMac";
+
+            string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
 			// Load optional user configuration
-			IConfiguration config = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.json", optional: true)
-				.AddJsonFile(Path.Combine(userProfilePath, "MatterControl.json"), optional: true)
-				.Build();
+			//IConfiguration config = new ConfigurationBuilder()
+   //             .AddJsonFile("appsettings.json", optional: true,reloadOnChange: false)
+			//	//.AddJsonFile(Path.Combine(userProfilePath, "MatterControl.json"), optional: true)
+			//	.Build();
 
-			// Override defaults via configuration
-			config.Bind("Agg:ProviderTypes", AggContext.Config.ProviderTypes);
-			config.Bind("Agg:GraphicsMode", AggContext.Config.GraphicsMode);
+			//// Override defaults via configuration
+			//config.Bind("Agg:ProviderTypes", AggContext.Config.ProviderTypes);
+			//config.Bind("Agg:GraphicsMode", AggContext.Config.GraphicsMode);
 
-			Slicer.RunInProcess = config.GetValue<bool>("MatterControl:Slicer:Debug");
+			//Slicer.RunInProcess = config.GetValue<bool>("MatterControl:Slicer:Debug");
 
 			// Make sure we have the right working directory as we assume everything relative to the executable.
 			Directory.SetCurrentDirectory(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location));
 
+
+
+
 			Datastore.Instance.Initialize();
 
-//#if !DEBUG
-//			// Conditionally spin up error reporting if not on the Stable channel
-//			string channel = UserSettings.Instance.get(UserSettingsKey.UpdateFeedType);
-//			if (string.IsNullOrEmpty(channel) || channel != "release" || OemSettings.Instance.WindowTitleExtra == "Experimental")
-//#endif
-//			{
-//				System.Windows.Forms.Application.ThreadException += (s, e) =>
-//				{
-//					if(raygunNotificationCount++ < RaygunMaxNotifications)
-//					{
-//						_raygunClient.Send(e.Exception);
-//					}
-//				};
+            //#if !DEBUG
+            //			// Conditionally spin up error reporting if not on the Stable channel
+            //			string channel = UserSettings.Instance.get(UserSettingsKey.UpdateFeedType);
+            //			if (string.IsNullOrEmpty(channel) || channel != "release" || OemSettings.Instance.WindowTitleExtra == "Experimental")
+            //#endif
+            //			{
+            //				System.Windows.Forms.Application.ThreadException += (s, e) =>
+            //				{
+            //					if(raygunNotificationCount++ < RaygunMaxNotifications)
+            //					{
+            //						_raygunClient.Send(e.Exception);
+            //					}
+            //				};
 
-//				AppDomain.CurrentDomain.UnhandledException += (s, e) =>
-//				{
-//					if (raygunNotificationCount++ < RaygunMaxNotifications)
-//					{
-//						_raygunClient.Send(e.ExceptionObject as Exception);
-//					}
-//				};
-//			}
+            //				AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            //				{
+            //					if (raygunNotificationCount++ < RaygunMaxNotifications)
+            //					{
+            //						_raygunClient.Send(e.ExceptionObject as Exception);
+            //					}
+            //				};
+            //			}
 
-			// Init platformFeaturesProvider before ShowAsSystemWindow
-			string platformFeaturesProvider = "MatterHackers.MatterControl.WindowsPlatformsFeatures, MatterControl.Winforms";
+            // Init platformFeaturesProvider before ShowAsSystemWindow
+            string platformFeaturesProvider = "MatterHackers.MatterControl.MacPlatformsFeatures, MatterControlMac";
 			AppContext.Platform = AggContext.CreateInstanceFrom<INativePlatformFeatures>(platformFeaturesProvider);
 			AppContext.Platform.ProcessCommandline();
 
@@ -103,6 +111,7 @@ namespace MatterHackers.MatterControl
 			var (width, height) = RootSystemWindow.GetStartupBounds();
 
 			var systemWindow = Application.LoadRootWindow(width, height);
+            systemWindow.DebugShowBounds = false;
 			systemWindow.ShowAsSystemWindow();
 		}
 
