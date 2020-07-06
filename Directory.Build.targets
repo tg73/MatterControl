@@ -1,0 +1,5 @@
+<Project>
+ <PropertyGroup>
+   <DocumentationFile Condition="$(DocumentationFile) == '' ">$(OutputPath)\$(ProjectName).xml</DocumentationFile>
+ </PropertyGroup>
+</Project>
